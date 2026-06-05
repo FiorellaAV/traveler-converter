@@ -1,0 +1,14 @@
+:root {
+    /* slightly darker background so shadows are visible on mobile */
+    --background: #dfe8f6;
+    --surface: #ffffff;
+
+    --primary: #56a979;
+    --primary-hover: #76b992;
+
+    --text-primary: #0f1724;
+    --text-secondary: #64748b;
+
+    /* stronger but soft border color (used for inputs/selects) */
+    --border: rgba(16,24,40,0.12);
+}

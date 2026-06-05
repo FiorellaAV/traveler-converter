@@ -1,0 +1,36 @@
+.label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.selectWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    
+}
+
+.flagSmall {
+    display: inline-block;
+    width: 1.2rem;
+    height: 0.9rem;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.select {
+    width: 100%;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: white;
+    outline: none;
+    margin: 6px 0px;
+}
+
+.select:focus {
+    box-shadow: 0 4px 14px rgba(99,102,241,0.12);
+    border-color: rgba(99,102,241,0.8);
+}

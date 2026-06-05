@@ -1,0 +1,20 @@
+.button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 18px;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 6px 0px;
+}
+
+.button:focus {
+    outline: none;
+    box-shadow: 0 6px 20px rgba(108,99,255,0.18);
+}
+
+.button:hover {
+    background: var(--primary-hover);
+}

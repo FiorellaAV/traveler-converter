@@ -1,0 +1,36 @@
+.container {
+  min-height: calc(100vh - 36px);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: 20px 0;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  text-align: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 14px;
+  box-shadow: none;
+}
+
+@media (max-width: 420px) {
+  .content {
+    gap: 12px;
+  }
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
