@@ -1,13 +1,18 @@
 .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 140px;
     width: 100%;
-    padding: 16px;
+    padding: 16px 20px;
     border: none;
     border-radius: 18px;
-    background: var(--primary);
     color: white;
     font-weight: 600;
     cursor: pointer;
-    margin: 6px 0px;
+    margin: 0;
+    transition: background 0.2s ease, opacity 0.2s ease;
 }
 
 .button:focus {
@@ -16,5 +21,21 @@
 }
 
 .button:hover {
+    opacity: 0.95;
+}
+
+.primary {
+    background: var(--primary);
+}
+
+.primary:hover {
     background: var(--primary-hover);
+}
+
+.secondary {
+    background: var(--secondary);
+}
+
+.secondary:hover {
+    background: var(--secondary-hover);
 }

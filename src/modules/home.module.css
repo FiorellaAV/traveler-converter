@@ -24,6 +24,10 @@
   padding: 14px;
   box-shadow: none;
 }
+.buttons {
+  display: flex;
+  gap: 12px;
+}
 
 @media (max-width: 420px) {
   .content {

@@ -4,7 +4,10 @@
     --surface: #ffffff;
 
     --primary: #56a979;
-    --primary-hover: #76b992;
+    --primary-hover: #4b946a;
+
+    --secondary: #3961c6;
+    --secondary-hover: #3154ac;
 
     --text-primary: #0f1724;
     --text-secondary: #64748b;

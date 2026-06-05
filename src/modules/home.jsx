@@ -37,12 +37,14 @@ const currencies = [
 ];
 
 function Home() {
-    const { convert } = useConverter();
+    const { convert, getQuotation } = useConverter();
 
     const [currency, setCurrency] = useState('EUR');
     const [amount, setAmount] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const [quotation, setQuotation] = useState(null);
 
     const handleConvert = async () => {
         try {
@@ -50,9 +52,25 @@ function Home() {
             const conversion = await convert(amount, currency);
             setResult(conversion);
         } catch (error) {
+            setLoading(false);
             alert(error.message);
         } finally {
             setLoading(false);
+        }
+
+    };
+
+    const handleGetQuotation = async () => {
+        try {
+            setResult(null);
+            setAmount('');
+
+            const currentQuotation = await getQuotation();
+            console.log(currentQuotation);
+            setQuotation(currentQuotation);
+        } catch (error) {
+            setLoading(false);
+            alert(error.message);
         }
     };
 
@@ -75,17 +93,31 @@ function Home() {
                     placeholder="Ingrese la cantidad a convertir"
                     labelOut="Cantidad"
                 />
+                <div className={styles.buttons}>
+                    <Button
+                        variant="primary"
+                        onClick={handleConvert}
+                        disabled={loading || !amount}
+                    >
+                        {loading ? 'Convirtiendo...' : 'Convertir'}
+                    </Button>
 
-                <Button
-                    onClick={handleConvert}
-                    disabled={loading || !amount}
-                >
-                    {loading ? 'Convirtiendo...' : 'Convertir'}
-                </Button>
-
+                    <Button
+                        variant="secondary"
+                        onClick={handleGetQuotation}
+                    >
+                        Ver cotización actual
+                    </Button>
+                </div>
                 {result && (
                     <Card
                         result={result}
+                        originCurrency={currency}
+                    />
+                )}
+                {quotation && result == null && (
+                    <Card
+                        result={quotation}
                         originCurrency={currency}
                     />
                 )}

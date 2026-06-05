@@ -1,6 +1,7 @@
 import { getRates } from '../services/dolarApi';
 
 export const useConverter = () => {
+    
     const convert = async (amount, currency) => {
         const { euroVenta, dolarVenta, pesoChilenoVenta, realVenta } = await getRates();
 
@@ -15,11 +16,15 @@ export const useConverter = () => {
             case 'EUR': {
                 const ars = value * euroVenta;
                 const usd = ars / dolarVenta;
+                const clp = ars / pesoChilenoVenta;
+                const real = ars / realVenta;
 
                 return [
                     { currency: 'EUR', value, code: 'EUR', countryCode: 'eu' },
                     { currency: 'ARS', value: ars, code: 'ARS', countryCode: 'ar' },
                     { currency: 'USD', value: usd, code: 'USD', countryCode: 'us' },
+                    { currency: 'CLP', value: clp, code: 'CLP', countryCode: 'cl' },
+                    { currency: 'REAL', value: real, code: 'REAL', countryCode: 'br' },
                 ];
             }
 
@@ -56,11 +61,15 @@ export const useConverter = () => {
             case 'CLP': {
                 const ars = value * pesoChilenoVenta;
                 const usd = ars / dolarVenta;
+                const eur = ars / euroVenta;
+                const real = ars / realVenta;
 
                 return [
                     { currency: 'CLP', value, code: 'CLP', countryCode: 'cl' },
                     { currency: 'ARS', value: ars, code: 'ARS', countryCode: 'ar' },
                     { currency: 'USD', value: usd, code: 'USD', countryCode: 'us' },
+                    { currency: 'EUR', value: eur, code: 'EUR', countryCode: 'eu' },
+                    { currency: 'REAL', value: real, code: 'REAL', countryCode: 'br' },
                 ];
             };
 
@@ -68,10 +77,15 @@ export const useConverter = () => {
             case 'REAL': {
                 const ars = value * realVenta;
                 const usd = ars / dolarVenta;
+                const eur = ars / euroVenta;
+                const clp = ars / pesoChilenoVenta;
+                
                 return [
                     { currency: 'REAL', value, code: 'REAL', countryCode: 'br' },
                     { currency: 'ARS', value: ars, code: 'ARS', countryCode: 'ar' },
                     { currency: 'USD', value: usd, code: 'USD', countryCode: 'us' },
+                    { currency: 'CLP', value: clp, code: 'CLP', countryCode: 'cl' },
+                    { currency: 'EUR', value: eur, code: 'EUR', countryCode: 'eu' },
                 ];
             }
 
@@ -80,7 +94,22 @@ export const useConverter = () => {
         }
     };
 
+    const getQuotation = async () => {
+        const { euroVenta, dolarVenta, pesoChilenoVenta, realVenta } = await getRates();
+    
+        return [
+            { value: 1, currency: 'USD', countryCode: 'us' },
+            { value: dolarVenta, currency: 'ARS', countryCode: 'ar' },
+            { value: euroVenta, currency: 'EUR', countryCode: 'eu' },
+            { value: pesoChilenoVenta, currency: 'CLP', countryCode: 'cl' },
+            { value: realVenta, currency: 'REAL', countryCode: 'br' },
+        ];
+    
+    };
+
+
     return {
         convert,
+        getQuotation,
     };
 };
