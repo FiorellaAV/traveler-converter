@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useConverter } from '../hooks/useConverter';
 import styles from './home.module.css';
 
-
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
@@ -74,6 +73,11 @@ function Home() {
         }
     };
 
+    const formatNumber = (value) =>
+        new Intl.NumberFormat('es-AR', {
+            maximumFractionDigits: 2,
+        }).format(value);
+
     return (
         <div className={styles.container}>
             <div className={styles.content}>
@@ -110,16 +114,49 @@ function Home() {
                     </Button>
                 </div>
                 {result && (
-                    <Card
-                        result={result}
-                        originCurrency={currency}
-                    />
+                    <Card>
+                        {
+                            result && (result.map((item) => (
+                                <div className={styles.row} key={item.currency}>
+                                    <>
+                                        <span className={styles.label}>
+
+                                            {item.countryCode && (
+                                                <span className={`fi fi-${item.countryCode} ${styles.flag}`} aria-hidden="true" />
+                                            )}
+                                            {" " + item.currency}
+                                        </span>
+                                        <span className={styles.value}>{formatNumber(item.value)}</span>
+                                    </>
+                                </div>
+                            ))
+                            )
+                        }
+                    </Card>
                 )}
                 {quotation && result == null && (
-                    <Card
-                        result={quotation}
-                        originCurrency={currency}
-                    />
+                    <Card>
+                        {quotation && (quotation.map((item) => (
+                            <div className={styles.row} key={item.currency}>
+                                <>
+                                    <span className={styles.label}>
+                                        {" 1 " + item.currency}
+                                        {item.countryCode && (
+                                            <span className={`fi fi-${item.countryCode} ${styles.flag}`} aria-hidden="true" />
+                                        )}
+                                        {"->"}
+                                        {item.countryCode && (
+                                            <span className={`fi fi-${"ar"} ${styles.flag}`} aria-hidden="true" />
+                                        )}
+
+                                        {" " + " ARS "}
+                                    </span>
+                                    <span className={styles.value}>{formatNumber(item.value)}</span>
+                                </>
+                            </div>
+                        ))
+                        )}
+                    </Card>
                 )}
             </div>
         </div>

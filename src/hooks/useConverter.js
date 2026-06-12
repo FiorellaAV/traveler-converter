@@ -98,8 +98,7 @@ export const useConverter = () => {
         const { euroVenta, dolarVenta, pesoChilenoVenta, realVenta } = await getRates();
     
         return [
-            { value: 1, currency: 'USD', countryCode: 'us' },
-            { value: dolarVenta, currency: 'ARS', countryCode: 'ar' },
+            { value: dolarVenta, currency: 'USD', countryCode: 'us' },
             { value: euroVenta, currency: 'EUR', countryCode: 'eu' },
             { value: pesoChilenoVenta, currency: 'CLP', countryCode: 'cl' },
             { value: realVenta, currency: 'REAL', countryCode: 'br' },
