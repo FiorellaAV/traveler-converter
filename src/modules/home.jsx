@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useConverter } from '../hooks/useConverter';
 import styles from './home.module.css';
 
@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Select } from '../components/Select';
 import { Card } from '../components/Card';
+import { FlagIcon } from '../components/Icons/FlagIcon';
 
 const currencies = [
     {
@@ -42,6 +43,7 @@ function Home() {
     const [amount, setAmount] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [lastUpdate, setLastUpdate] = useState(null);
 
     const [quotation, setQuotation] = useState(null);
 
@@ -73,10 +75,16 @@ function Home() {
         }
     };
 
-    const formatNumber = (value) =>
-        new Intl.NumberFormat('es-AR', {
-            maximumFractionDigits: 2,
-        }).format(value);
+  const formatNumber = value =>
+    new Intl.NumberFormat('es-AR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(value);
+
+    useEffect(() => {
+        const cache = localStorage.getItem('currency_rates');
+        setLastUpdate(cache ? new Date(JSON.parse(cache).timestamp).toLocaleString() : 'No disponible');
+    }, [result]);
 
     return (
         <div className={styles.container}>
@@ -113,6 +121,12 @@ function Home() {
                         Ver cotización actual
                     </Button>
                 </div>
+
+                <div className={styles.lastUpdate}>
+                    <span className={styles.label} style={{ display: "flex", justifyContent: "center" }}>
+                        Última actualización: {lastUpdate}
+                    </span>
+                </div>
                 {result && (
                     <Card>
                         {
@@ -121,9 +135,7 @@ function Home() {
                                     <>
                                         <span className={styles.label}>
 
-                                            {item.countryCode && (
-                                                <span className={`fi fi-${item.countryCode} ${styles.flag}`} aria-hidden="true" />
-                                            )}
+                                            <FlagIcon countryCode={item.countryCode} className={styles.flag} />
                                             {" " + item.currency}
                                         </span>
                                         <span className={styles.value}>{formatNumber(item.value)}</span>
@@ -141,14 +153,9 @@ function Home() {
                                 <>
                                     <span className={styles.label}>
                                         {" 1 " + item.currency}
-                                        {item.countryCode && (
-                                            <span className={`fi fi-${item.countryCode} ${styles.flag}`} aria-hidden="true" />
-                                        )}
-                                        {"->"}
-                                        {item.countryCode && (
-                                            <span className={`fi fi-${"ar"} ${styles.flag}`} aria-hidden="true" />
-                                        )}
-
+                                        <FlagIcon countryCode={item.countryCode} className={styles.flag} />
+                                        {" -> "}
+                                        <FlagIcon countryCode="ar" className={styles.flag} />
                                         {" " + " ARS "}
                                     </span>
                                     <span className={styles.value}>{formatNumber(item.value)}</span>

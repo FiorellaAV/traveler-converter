@@ -58,6 +58,5 @@ npm run dev:mobile
 - React
 - Vite
 - CSS Modules
-- [flag-icons](https://github.com/lipis/flag-icons)
 - [DolarAPI](https://dolarapi.com/) para las cotizaciones
 - vite-plugin-pwa

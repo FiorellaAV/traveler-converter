@@ -5,7 +5,6 @@ export const Card = ({
 }) => {
     return (
         <div className={styles.card}>
-            <h2 className={styles.heading}>Resultado</h2>
             <div className={styles.rows}>
                 {children}
             </div>

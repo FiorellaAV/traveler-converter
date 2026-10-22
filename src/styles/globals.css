@@ -15,16 +15,23 @@ body {
     sans-serif;
 
   color: var(--text-primary);
+  min-height: 100vh;
+  padding: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* page padding so content doesn't touch viewport edges on mobile */
-body {
-  padding: 18px;
-  -webkit-font-smoothing: antialiased;
+#root {
+  width: 100%;
 }
 
 button,
 input,
 select {
   font: inherit;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
 }
