@@ -7,6 +7,8 @@ export const Input = ({
     labelOut,
     placeholder,
     onlyNumber = false,
+    clearable = false,
+    onClear,
     ...props }) => {
 
     const handleChange = (e) => {
@@ -23,14 +25,26 @@ export const Input = ({
     return (
         <div>
             {labelOut && <label className={styles.label}>{labelOut}</label>}
-            <input
-                className={styles.input}
-                type="text"
-                value={value}
-                onChange={handleChange}
-                placeholder={placeholder}
-                {...props}
-            />
+            <div className={styles.inputWrapper}>
+                <input
+                    className={`${styles.input} ${clearable ? styles.clearableInput : ''}`}
+                    type="text"
+                    value={value}
+                    onChange={handleChange}
+                    placeholder={placeholder}
+                    {...props}
+                />
+                {clearable && value && (
+                    <button
+                        className={styles.clearButton}
+                        type="button"
+                        onClick={onClear}
+                        aria-label="Borrar cantidad"
+                    >
+                        <span aria-hidden="true">×</span>
+                    </button>
+                )}
+            </div>
         </div>
     );
 }

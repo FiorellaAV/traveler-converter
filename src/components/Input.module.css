@@ -1,3 +1,7 @@
+.inputWrapper {
+    position: relative;
+}
+
 .input {
     width: 100%;
     min-width: 0;
@@ -10,9 +14,54 @@
     font-size: 16px;
 }
 
+.clearableInput {
+    padding-right: 48px;
+}
+
+.clearButton {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.clearButton:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
+}
+
+.clearButton:focus-visible {
+    outline: 2px solid rgba(99, 102, 241, 0.8);
+    outline-offset: 1px;
+}
+
 .input:focus {
     box-shadow: 0 4px 14px rgba(99,102,241,0.12);
     border-color: rgba(99,102,241,0.8);
+}
+
+.input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
 }
 
 .label {

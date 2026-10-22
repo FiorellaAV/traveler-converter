@@ -58,14 +58,11 @@ function Home() {
         } finally {
             setLoading(false);
         }
-
     };
 
     const handleGetQuotation = async () => {
         try {
             setResult(null);
-            setAmount('');
-
             const currentQuotation = await getQuotation();
             console.log(currentQuotation);
             setQuotation(currentQuotation);
@@ -104,6 +101,8 @@ function Home() {
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="Ingrese la cantidad a convertir"
                     labelOut="Cantidad"
+                    clearable
+                    onClear={() => setAmount('')}
                 />
                 <div className={styles.buttons}>
                     <Button
